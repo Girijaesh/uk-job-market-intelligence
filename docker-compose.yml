@@ -1,0 +1,100 @@
+version: "3.9"
+
+networks:
+  jobmarket-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+  pgadmin-data:
+
+services:
+
+  # -------------------------------------------------------------------------
+  # PostgreSQL 15 — primary data store
+  # -------------------------------------------------------------------------
+  postgres:
+    image: postgres:15
+    container_name: jobmarket-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: jobmarket
+      POSTGRES_USER: jobuser
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - jobmarket-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U jobuser -d jobmarket"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # -------------------------------------------------------------------------
+  # pgAdmin 4 — database browser (localhost:5050)
+  # -------------------------------------------------------------------------
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: jobmarket-pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@admin.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin}
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - jobmarket-network
+
+  # -------------------------------------------------------------------------
+  # FastAPI — REST API (localhost:8000)
+  # -------------------------------------------------------------------------
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: jobmarket-api
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://jobuser:${POSTGRES_PASSWORD:-password}@postgres:5432/jobmarket
+      REED_API_KEY: ${REED_API_KEY}
+      ADZUNA_APP_ID: ${ADZUNA_APP_ID}
+      ADZUNA_API_KEY: ${ADZUNA_API_KEY}
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - jobmarket-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # -------------------------------------------------------------------------
+  # Streamlit dashboard (localhost:8501)
+  # -------------------------------------------------------------------------
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile.dashboard
+    container_name: jobmarket-dashboard
+    restart: unless-stopped
+    environment:
+      API_BASE_URL: http://api:8000
+    ports:
+      - "8501:8501"
+    depends_on:
+      api:
+        condition: service_healthy
+    networks:
+      - jobmarket-network
