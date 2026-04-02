@@ -25,14 +25,14 @@ This is a production-quality project with a real database, containerised service
 ### Top Skills This Week
 Real-time horizontal bar chart showing the 20 most in-demand technology skills across 3,125 UK job postings. Each bar is colour-coded by category — **Python dominates with 200+ mentions**, followed by **AWS** (cloud), **Azure** (cloud), **LLM** (NLP/AI), and **Databricks** (data engineering). The sidebar lets you filter by date range, skill category, and location (All UK / London only).
 
-![Top Skills This Week](screenshots/skills_chart.png)
+![Top Skills This Week]()
 
 ---
 
 ### Top 15 Hiring Companies This Month
 Horizontal bar chart ranked by number of active job postings. **IT Career Switch** leads with 350+ postings, followed by specialist recruiters **Harnham** (260) and **ITOL Recruit** (160). Tech employers include **Accenture** (88 roles), **Faculty AI** (30 roles), and **Tenth Revolution Group** (77 roles). The blue intensity gradient maps directly to posting volume.
 
-![Top 15 Hiring Companies](screenshots/companies_chart.png)
+![Top 15 Hiring Companies]()
 
 ---
 
