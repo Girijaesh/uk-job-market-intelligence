@@ -32,7 +32,7 @@ Real-time horizontal bar chart showing the 20 most in-demand technology skills a
 ### Top 15 Hiring Companies This Month
 Horizontal bar chart ranked by number of active job postings. **IT Career Switch** leads with 350+ postings, followed by specialist recruiters **Harnham** (260) and **ITOL Recruit** (160). Tech employers include **Accenture** (88 roles), **Faculty AI** (30 roles), and **Tenth Revolution Group** (77 roles). The blue intensity gradient maps directly to posting volume.
 
-![Top 15 Hiring Companies](https://github.com/Girijaesh/uk-job-market-intelligence/blob/main/newplot.png?raw=true)
+![Top 15 Hiring Companies](https://github.com/Girijaesh/uk-job-market-intelligence/blob/main/screenshots/newplot.png?raw=true)
 
 ---
 
