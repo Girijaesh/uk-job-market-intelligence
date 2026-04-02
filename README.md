@@ -25,7 +25,7 @@ This is a production-quality project with a real database, containerised service
 ### Top Skills This Week
 Real-time horizontal bar chart showing the 20 most in-demand technology skills across 3,125 UK job postings. Each bar is colour-coded by category — **Python dominates with 200+ mentions**, followed by **AWS** (cloud), **Azure** (cloud), **LLM** (NLP/AI), and **Databricks** (data engineering). The sidebar lets you filter by date range, skill category, and location (All UK / London only).
 
-![Top Skills This Week](https://github.com/Girijaesh/uk-job-market-intelligence/blob/main/Screenshot%202026-04-02%20100051.png?raw=true)
+![Top Skills This Week](https://github.com/Girijaesh/uk-job-market-intelligence/blob/main/screenshots/Screenshot%202026-04-02%20100051.png?raw=true)
 
 ---
 
